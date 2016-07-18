@@ -25,7 +25,7 @@
     <groupId>de.wicketbuch.extensions</groupId>
     <artifactId>pagemounter</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.wicket6-SNAPSHOT</version>
+    <version>1.0.wicket5</version>
     <!-- TODO project name  -->
     <name>pagemounter</name>
     <!--
@@ -175,6 +175,13 @@
                 </configuration>
             </plugin>
             <plugin>
+                <artifactId>maven-scm-plugin</artifactId>
+                <version>1.9.4</version>
+                <configuration>
+                    <tag>${project.artifactId}-${project.version}</tag>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>${jetty9.version}</version>
@@ -214,4 +221,22 @@
             </snapshots>
         </repository>
     </repositories>
+    <developers>
+        <developer>
+            <name>Carl-Eric Menzel</name>
+            <email>cmenzel@wicketbuch.de</email>
+        </developer>
+    </developers>
+    <distributionManagement>
+        <repository>
+            <id>repo</id>
+            <url>${repo.releases}</url>
+        </repository>
+    </distributionManagement>
+    <scm>
+        <connection>scm:git:git@github.com:duesenklipper/wicket-pagemounter.git</connection>
+        <url>scm:git:git@github.com:duesenklipper/wicket-pagemounter.git</url>
+        <developerConnection>scm:git:git@github.com:duesenklipper/wicket-pagemounter.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
 </project>
