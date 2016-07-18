@@ -25,7 +25,7 @@
     <groupId>de.wicketbuch.extensions</groupId>
     <artifactId>pagemounter</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.wicket7</version>
+    <version>1.1.wicket7-SNAPSHOT</version>
     <!-- TODO project name  -->
     <name>pagemounter</name>
     <!--
