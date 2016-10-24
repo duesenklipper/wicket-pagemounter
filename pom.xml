@@ -30,7 +30,7 @@
         <artifactId>duesenklipper-parent</artifactId>
         <version>1.4</version>
     </parent>
-    <version>1.1.wicket6-SNAPSHOT</version>
+    <version>1.0.1.wicket6</version>
     <name>pagemounter</name>
     <description>
         Mount a range of pages automatically in Wicket.
