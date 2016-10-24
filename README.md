@@ -1,10 +1,10 @@
+**Current version**: 1.0.1.wicket{5|6|7} for Wicket 1.5.x, 6.x, 7.x
+
+**New:** These artifacts are now on Maven Central, no more custom repository 
+needed.
+
+
 # wicket-pagemounter
-
-Current versions:
- - **1.0.wicket7** for Wicket 7.x
- - **1.0.wicket6** for Wicket 6.x
- - **1.0.wicket5** for Wicket 1.5.x
-
 
 A small utility that automatically mounts all WebPages (or a certain subset thereof) using the fully qualified classname, optionally with a prefix.
 
@@ -17,28 +17,17 @@ This will take all non-abstract page classes extending `MyPage` that are in `my.
 
     foo/my.package.MyConcretePage
 
-To use it, add the following repository to your `pom.xml`:
-
-    <repositories>
-      <repository>
-        <id>duesenklipper</id>
-        <url>http://duesenklipper.github.com/maven/releases</url>
-        <snapshots>
-          <enabled>false</enabled>
-        </snapshots>
-        <releases>
-          <enabled>true</enabled>
-        </releases>
-      </repository>
-    </repositories>
-
-Then add the following dependency:
+## Maven coordinates
 
     <dependency>
         <groupId>de.wicketbuch.extensions</groupId>
         <artifactId>pagemounter</artifactId>
-        <version>1.0.wicket7</version>
+        <version>1.0.1.wicket7</version>
     </dependency>
 
+Make sure you choose the correct version for the version of Wicket you are
+using, they are suffixed with `.wicket5`, `.wicket6`, `.wicket7` 
+respectively.
 
-
+This project uses [Semantic Versioning](http://semver.org/), so you can rely on
+things not breaking within a major version.
