@@ -17,20 +17,21 @@
 package de.wicketbuch.extensions.pagemounter;
 
 import java.lang.reflect.Modifier;
-import java.util.Set;
+import java.util.List;
 
+import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
+import io.github.lukehutch.fastclasspathscanner.scanner.ScanResult;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
-import org.reflections.Reflections;
 
 public class PageMounter
 {
-	private final Reflections reflections;
 	private final WebApplication application;
+	private final ScanResult scanResult;
 
 	public PageMounter(String packagePrefix, WebApplication application)
 	{
-		reflections = new Reflections(packagePrefix);
+		scanResult = new FastClasspathScanner(packagePrefix).verbose().scan();
 		this.application = application;
 	}
 
@@ -49,12 +50,21 @@ public class PageMounter
 		mountAllPagesExtending(prefix, WebPage.class);
 	}
 
+	@SuppressWarnings("unchecked")
 	public <T extends WebPage> void mountAllPagesExtending(String prefix, Class<T> superClass)
 	{
-		final Set<Class<? extends T>> pageClasses = reflections.getSubTypesOf(superClass);
-		pageClasses.add(superClass);
-		for (Class<? extends T> pageClass : pageClasses)
+		final List<String> subclassNames = scanResult.getNamesOfSubclassesOf(superClass);
+		subclassNames.add(superClass.getCanonicalName());
+		for (String className : subclassNames)
 		{
+			final Class<? extends T> pageClass;
+			try
+			{
+				pageClass = (Class<? extends T>) Class.forName(className);
+			} catch (ClassNotFoundException e)
+			{
+				throw new RuntimeException(e);
+			}
 			if (!Modifier.isAbstract(pageClass.getModifiers()))
 			{
 				final String canonicalName = pageClass.getCanonicalName();
