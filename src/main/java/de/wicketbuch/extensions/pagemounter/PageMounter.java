@@ -16,11 +16,10 @@
  */
 package de.wicketbuch.extensions.pagemounter;
 
-import java.lang.reflect.Modifier;
-import java.util.List;
-
-import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
-import io.github.lukehutch.fastclasspathscanner.scanner.ScanResult;
+import io.github.classgraph.ClassGraph;
+import io.github.classgraph.ClassInfo;
+import io.github.classgraph.ClassInfoList;
+import io.github.classgraph.ScanResult;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
 
@@ -31,7 +30,7 @@ public class PageMounter
 
 	public PageMounter(String packagePrefix, WebApplication application)
 	{
-		scanResult = new FastClasspathScanner(packagePrefix).verbose().scan();
+		scanResult = new ClassGraph().verbose().whitelistPackages(packagePrefix).scan();
 		this.application = application;
 	}
 
@@ -50,26 +49,19 @@ public class PageMounter
 		mountAllPagesExtending(prefix, WebPage.class);
 	}
 
-	@SuppressWarnings("unchecked")
 	public <T extends WebPage> void mountAllPagesExtending(String prefix, Class<T> superClass)
 	{
-		final List<String> subclassNames = scanResult.getNamesOfSubclassesOf(superClass);
-		subclassNames.add(superClass.getCanonicalName());
-		for (String className : subclassNames)
+		final ClassInfo superClassInfo = scanResult.getClassInfo(superClass.getCanonicalName());
+		final ClassInfoList classes = scanResult.getSubclasses(superClass.getCanonicalName());
+		classes.add(superClassInfo);
+		for (ClassInfo classInfo : classes)
 		{
-			final Class<? extends T> pageClass;
-			try
+			if (!classInfo.isAbstract())
 			{
-				pageClass = (Class<? extends T>) Class.forName(className);
-			} catch (ClassNotFoundException e)
-			{
-				throw new RuntimeException(e);
-			}
-			if (!Modifier.isAbstract(pageClass.getModifiers()))
-			{
-				final String canonicalName = pageClass.getCanonicalName();
+				final String canonicalName = classInfo.getName();
 				if (canonicalName != null)
 				{
+					Class<? extends WebPage> pageClass = classInfo.loadClass(WebPage.class);
 					application.mountPage(prefix + "/" + canonicalName, pageClass);
 				}
 			}
