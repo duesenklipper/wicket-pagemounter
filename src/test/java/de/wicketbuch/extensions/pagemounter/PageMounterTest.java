@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 Carl-Eric Menzel <cmenzel@wicketbuch.de>
+ * Copyright (C) 2016-2020 Carl-Eric Menzel <cmenzel@wicketbuch.de>
  * and possibly other pagemounter contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,6 +20,7 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
+import de.wicketbuch.extensions.pagemounter.subpackage.TestPage3;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.util.tester.WicketTester;
@@ -27,9 +28,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * Created by calle on 16/07/16.
- */
 public class PageMounterTest
 {
 	private WicketTester tester;
@@ -55,6 +53,7 @@ public class PageMounterTest
 		mounter.mountAllPages();
 		assertThat(RequestCycle.get().urlFor(TestPage1.class, null).toString(), equalTo("./de.wicketbuch.extensions.pagemounter.TestPage1"));
 		assertThat(RequestCycle.get().urlFor(TestPage2.class, null).toString(), equalTo("./de.wicketbuch.extensions.pagemounter.TestPage2"));
+		assertThat(RequestCycle.get().urlFor(TestPage3.class, null).toString(), equalTo("./de.wicketbuch.extensions.pagemounter.subpackage.TestPage3"));
 		assertThat(RequestCycle.get().urlFor(SubPage1.class, null).toString(), equalTo("./de.wicketbuch.extensions.pagemounter.SubPage1"));
 		assertThat("AbstractPage is abstract, should not be mounted", RequestCycle.get().urlFor(AbstractPage.class, null).toString(), containsString("/wicket/"));
 	}
@@ -66,6 +65,7 @@ public class PageMounterTest
 		mounter.mountAllPages("foo");
 		assertThat(RequestCycle.get().urlFor(TestPage1.class, null).toString(), equalTo("./foo/de.wicketbuch.extensions.pagemounter.TestPage1"));
 		assertThat(RequestCycle.get().urlFor(TestPage2.class, null).toString(), equalTo("./foo/de.wicketbuch.extensions.pagemounter.TestPage2"));
+		assertThat(RequestCycle.get().urlFor(TestPage3.class, null).toString(), equalTo("./foo/de.wicketbuch.extensions.pagemounter.subpackage.TestPage3"));
 		assertThat(RequestCycle.get().urlFor(SubPage1.class, null).toString(), equalTo("./foo/de.wicketbuch.extensions.pagemounter.SubPage1"));
 		assertThat("AbstractPage is abstract, should not be mounted", RequestCycle.get().urlFor(AbstractPage.class, null).toString(), containsString("/wicket/"));
 	}

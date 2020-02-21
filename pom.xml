@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (C) 2016 Carl-Eric Menzel <cmenzel@wicketbuch.de>
+    Copyright (C) 2016-2020 Carl-Eric Menzel <cmenzel@wicketbuch.de>
     and possibly other pagemounter contributors.
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,7 +30,7 @@
         <artifactId>duesenklipper-parent</artifactId>
         <version>1.4</version>
     </parent>
-    <version>1.0.0.wicket8-SNAPSHOT</version>
+    <version>1.1.0.experimental2.1.wicket8-SNAPSHOT</version>
     <name>pagemounter</name>
     <description>
         Mount a range of pages automatically in Wicket.
@@ -90,9 +90,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.reflections</groupId>
-            <artifactId>reflections</artifactId>
-            <version>0.9.12</version>
+            <groupId>io.github.classgraph</groupId>
+            <artifactId>classgraph</artifactId>
+            <version>4.8.65</version>
         </dependency>
     </dependencies>
     <build>

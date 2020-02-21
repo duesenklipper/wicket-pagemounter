@@ -14,13 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.wicketbuch.extensions.pagemounter;
+package de.wicketbuch.extensions.pagemounter.subpackage;
 
-import org.apache.wicket.markup.html.WebPage;
+import de.wicketbuch.extensions.pagemounter.TestPage2;
 
 /**
  * Created by calle on 16/07/16.
  */
-public class TestPage1 extends WebPage
+public class TestPage3 extends TestPage2
 {
 }
