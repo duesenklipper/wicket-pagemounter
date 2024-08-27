@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016-2020 Carl-Eric Menzel <cmenzel@wicketbuch.de>
+ * Copyright (C) 2016-2024 Carl-Eric Menzel <cmenzel@wicketbuch.de>
  * and possibly other pagemounter contributors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,12 +39,12 @@ public class PageMounter
 		mountAllPagesExtending("", superClass);
 	}
 
-	public <T extends WebPage> void mountAllPages()
+	public void mountAllPages()
 	{
 		mountAllPages("");
 	}
 
-	public <T extends WebPage> void mountAllPages(String prefix)
+	public void mountAllPages(String prefix)
 	{
 		mountAllPagesExtending(prefix, WebPage.class);
 	}
