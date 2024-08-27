@@ -28,9 +28,9 @@
     <parent>
         <groupId>de.duesenklipper.maven</groupId>
         <artifactId>duesenklipper-parent</artifactId>
-        <version>1.4</version>
+        <version>1.9.1.java17</version>
     </parent>
-    <version>1.2.0.wicket7-SNAPSHOT</version>
+    <version>1.2.0.wicket9-SNAPSHOT</version>
     <name>pagemounter</name>
     <description>
         Mount a range of pages automatically in Wicket.
@@ -50,7 +50,7 @@
         </developer>
     </developers>
     <properties>
-        <wicket.version>7.3.0</wicket.version>
+        <wicket.version>9.18.0</wicket.version>
         <jetty9.version>9.2.13.v20150730</jetty9.version>
         <log4j.version>2.5</log4j.version>
         <junit.version>4.12</junit.version>
@@ -66,6 +66,12 @@
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-core</artifactId>
             <version>${wicket.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-request</artifactId>
+            <version>${wicket.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <!--  JUNIT DEPENDENCY FOR TESTING -->
@@ -143,6 +149,8 @@
                         <exclude>**/LICENSE</exclude>
                         <exclude>**/keystore</exclude>
                         <exclude>**/jetty*.xml</exclude>
+                        <exclue>mvnw*</exclue>
+                        <exclue>.mvn/wrapper/</exclue>
                     </excludes>
                     <useDefaultExcludes>true</useDefaultExcludes>
                     <strictCheck>true</strictCheck>
