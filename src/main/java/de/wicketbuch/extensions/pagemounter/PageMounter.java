@@ -30,7 +30,7 @@ public class PageMounter
 
 	public PageMounter(String packagePrefix, WebApplication application)
 	{
-		scanResult = new ClassGraph().verbose().whitelistPackages(packagePrefix).scan();
+		scanResult = new ClassGraph().verbose().acceptPackages(packagePrefix).scan();
 		this.application = application;
 	}
 

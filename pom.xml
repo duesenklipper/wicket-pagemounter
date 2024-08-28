@@ -30,7 +30,7 @@
         <artifactId>duesenklipper-parent</artifactId>
         <version>1.9.1.java17</version>
     </parent>
-    <version>1.2.2.wicket9-SNAPSHOT</version>
+    <version>1.2.2.wicket10-SNAPSHOT</version>
     <name>pagemounter</name>
     <description>
         Mount a range of pages automatically in Wicket.
@@ -50,18 +50,30 @@
         </developer>
     </developers>
     <properties>
-        <wicket.version>9.18.0</wicket.version>
-        <jetty9.version>9.2.13.v20150730</jetty9.version>
-        <log4j.version>2.5</log4j.version>
-        <junit.version>5.11.0</junit.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- allowed values: R7, 1.0, 1.5, 2.0 or none -->
-        <wtp.version>none</wtp.version>
         <main.basedir>${project.basedir}</main.basedir>
-        <license.file>${main.basedir}/LICENSE</license.file>
+        <junit.version>5.10.2</junit.version>
+        <clirr.compare.version>1.2.5.wicket7</clirr.compare.version>
+        <wicket.version>10.1.0</wicket.version>
     </properties>
     <dependencies>
-        <!--  WICKET DEPENDENCIES -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.26.3</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-core</artifactId>
@@ -73,23 +85,15 @@
             <version>${wicket.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>3.26.3</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-request</artifactId>
             <version>${wicket.version}</version>
             <scope>test</scope>
         </dependency>
-
-        <!--  JUNIT DEPENDENCY FOR TESTING -->
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit.version}</version>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-tester</artifactId>
+            <version>${wicket.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -98,9 +102,9 @@
             <version>4.8.175</version>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.1.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -152,8 +156,8 @@
                         <exclude>**/LICENSE</exclude>
                         <exclude>**/keystore</exclude>
                         <exclude>**/jetty*.xml</exclude>
-                        <exclue>mvnw*</exclue>
-                        <exclue>.mvn/wrapper/</exclue>
+                        <exclude>mvnw*</exclude>
+                        <exclude>.mvn/wrapper/</exclude>
                     </excludes>
                     <useDefaultExcludes>true</useDefaultExcludes>
                     <strictCheck>true</strictCheck>
@@ -168,19 +172,6 @@
                 </executions>
             </plugin>
             <plugin>
-                <inherited>true</inherited>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                    <encoding>UTF-8</encoding>
-                    <showWarnings>true</showWarnings>
-                    <showDeprecation>true</showDeprecation>
-                </configuration>
-            </plugin>
-            <plugin>
                 <artifactId>maven-scm-plugin</artifactId>
                 <version>1.9.4</version>
                 <configuration>
@@ -188,36 +179,12 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>${jetty9.version}</version>
-                <configuration>
-                    <systemProperties>
-                        <systemProperty>
-                            <name>maven.project.build.directory.test-classes</name>
-                            <value>${project.build.directory}/test-classes</value>
-                        </systemProperty>
-                    </systemProperties>
-                    <jettyXml>
-                        ${project.basedir}/src/test/jetty/jetty.xml,${project.basedir}/src/test/jetty/jetty-ssl.xml,${project.basedir}/src/test/jetty/jetty-http.xml,${project.basedir}/src/test/jetty/jetty-https.xml
-                    </jettyXml>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-eclipse-plugin</artifactId>
-                <version>2.9</version>
-                <configuration>
-                    <downloadSources>true</downloadSources>
-                    <wtpversion>${wtp.version}</wtpversion>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <configuration>
                     <ignoredUnusedDeclaredDependencies>
-                        <ignoredUnusedDeclaredDependency>org.apache.wicket:wicket-util</ignoredUnusedDeclaredDependency>
+                        <ignoredUnusedDeclaredDependency>org.apache.wicket:wicket-util
+                        </ignoredUnusedDeclaredDependency>
                     </ignoredUnusedDeclaredDependencies>
                 </configuration>
             </plugin>
@@ -238,7 +205,8 @@
     <scm>
         <connection>scm:git:git@github.com:duesenklipper/wicket-pagemounter.git</connection>
         <url>scm:git:git@github.com:duesenklipper/wicket-pagemounter.git</url>
-        <developerConnection>scm:git:git@github.com:duesenklipper/wicket-pagemounter.git</developerConnection>
+        <developerConnection>scm:git:git@github.com:duesenklipper/wicket-pagemounter.git
+        </developerConnection>
         <tag>HEAD</tag>
     </scm>
 </project>
